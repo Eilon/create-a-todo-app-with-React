@@ -12,9 +12,6 @@ function Form({ todos, setTodos }) {
     // Update todo state
     setTodos((prevTodos) => [...prevTodos, newTodo]);
 
-    // Store updated todo list in local storage
-    window.HybridWebView.InvokeDotNet("SetTodos", [ [...todos, newTodo] ]);
-
     event.target.reset();
   };
 

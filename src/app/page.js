@@ -20,6 +20,11 @@ function Home() {
     HybridWebView.InvokeDotNet("StartTaskLoading");
   }, []);
 
+  React.useEffect(() => {
+    console.log("Setting todos in storage");
+    window.HybridWebView.InvokeDotNet("SetTodos", [todos]);
+  }, [todos]);
+
   const todos_completed = todos.filter(
     (todo) => todo.is_completed == true
   ).length;

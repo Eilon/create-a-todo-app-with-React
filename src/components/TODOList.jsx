@@ -26,9 +26,6 @@ function Item({ item, todos, setTodos }) {
           : todo
       )
     );
-
-    // Update storage after marking todo as completed
-    window.HybridWebView.InvokeDotNet("SetTodos", [ todos ]);
   };
 
   const handleEdit = () => {
@@ -58,25 +55,15 @@ function Item({ item, todos, setTodos }) {
   const handleInpuSubmit = (event) => {
     event.preventDefault();
 
-    // Update storage after editing todo
-    window.HybridWebView.InvokeDotNet("SetTodos", [ todos ]);
-
     setEditing(false);
   };
 
   const handleInputBlur = () => {
-    // Update storage after editing todo
-    window.HybridWebView.InvokeDotNet("SetTodos", [ todos ]);
-
     setEditing(false);
   };
 
   const handleDelete = () => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== item.id));
-
-    // Update storage after editing todo
-    window.HybridWebView.InvokeDotNet("SetTodos", [ todos.filter((todo) => todo.id !== item.id) ]);
-
   };
 
   return (
