@@ -13,8 +13,7 @@ function Form({ todos, setTodos }) {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
 
     // Store updated todo list in local storage
-    const updatedTodoList = JSON.stringify([...todos, newTodo]);
-    localStorage.setItem("todos", updatedTodoList);
+    window.HybridWebView.InvokeDotNet("SetTodos", [ [...todos, newTodo] ]);
 
     event.target.reset();
   };

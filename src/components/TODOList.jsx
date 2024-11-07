@@ -27,9 +27,8 @@ function Item({ item, todos, setTodos }) {
       )
     );
 
-    // Update localStorage after marking todo as completed
-    const updatedTodos = JSON.stringify(todos);
-    localStorage.setItem("todos", updatedTodos);
+    // Update storage after marking todo as completed
+    window.HybridWebView.InvokeDotNet("SetTodos", [ todos ]);
   };
 
   const handleEdit = () => {
@@ -59,17 +58,15 @@ function Item({ item, todos, setTodos }) {
   const handleInpuSubmit = (event) => {
     event.preventDefault();
 
-    // Update localStorage after editing todo
-    const updatedTodos = JSON.stringify(todos);
-    localStorage.setItem("todos", updatedTodos);
+    // Update storage after editing todo
+    window.HybridWebView.InvokeDotNet("SetTodos", [ todos ]);
 
     setEditing(false);
   };
 
   const handleInputBlur = () => {
-    // Update localStorage after editing todo
-    const updatedTodos = JSON.stringify(todos);
-    localStorage.setItem("todos", updatedTodos);
+    // Update storage after editing todo
+    window.HybridWebView.InvokeDotNet("SetTodos", [ todos ]);
 
     setEditing(false);
   };
@@ -77,11 +74,9 @@ function Item({ item, todos, setTodos }) {
   const handleDelete = () => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== item.id));
 
-    // Update localStorage after deleting todo
-    const updatedTodos = JSON.stringify(
-      todos.filter((todo) => todo.id !== item.id)
-    );
-    localStorage.setItem("todos", updatedTodos);
+    // Update storage after editing todo
+    window.HybridWebView.InvokeDotNet("SetTodos", [ todos.filter((todo) => todo.id !== item.id) ]);
+
   };
 
   return (

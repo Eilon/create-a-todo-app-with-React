@@ -9,18 +9,22 @@ import TODOList from "@/components/TODOList";
 function Home() {
   const [todos, setTodos] = React.useState([]);
 
-  // Retrieve data from localStorage when component mounts
   React.useEffect(() => {
-    const storedTodos = localStorage.getItem("todos");
-    if (storedTodos) {
-      setTodos(JSON.parse(storedTodos));
-    }
+    window.globalSetData = function (newData) {
+      console.log("New data arrived with " + newData.length + " item(s)");
+      setTodos(newData);
+      return "null";
+    };
+
+    console.log("Start loading...");
+    HybridWebView.InvokeDotNet("StartTaskLoading");
   }, []);
 
   const todos_completed = todos.filter(
     (todo) => todo.is_completed == true
   ).length;
   const total_todos = todos.length;
+
   return (
     <div className="wrapper">
       <Header />
